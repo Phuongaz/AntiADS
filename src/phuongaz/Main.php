@@ -29,7 +29,7 @@ class Main extends PluginBase implements Listener{
             fwrite($fh, "\r\n");
             fclose($fh);
             $event->getPlayer()->sendMessage("Không quảng cáo!");
-            $event->cancel();
+            $event->setCancelled();
         }
     }
 }
