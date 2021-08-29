@@ -8,6 +8,8 @@ use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase implements Listener{
+    
+    private array $whitelist = ["locmvn.com"];
 
     public function onEnable(): void{
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -20,14 +22,16 @@ class Main extends PluginBase implements Listener{
         if(count($matches[0]) > 0){
             $list = $event->getPlayer()->getName() . ": ";
             foreach($matches as $values){
-                $list .= implode(", ", str_replace(" ", "", $values));
+                $values = str_replace(" ", "", $values);
+                if(in_array($values, $this->whitelist)) return;
+                $list .= implode(", ", $values);
             }
             $path = $this->getDataFolder() . "ads.log";
             $fh = fopen($path, "a") or die("cant open file");
             fwrite($fh, $list);
             fwrite($fh, "\r\n");
             fclose($fh);
-            $event->getPlayer()->sendMessage("Không quảng cáo!");
+            $event->getPlayer()->sendMessage("[AntiADS] Link found: ".$list."!");
             $event->cancel();
         }
     }
