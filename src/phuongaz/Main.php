@@ -23,7 +23,7 @@ class Main extends PluginBase implements Listener{
             $list = $event->getPlayer()->getName() . ": ";
             foreach($matches as $values){
                 $values = str_replace(" ", "", $values);
-                if(in_array($values, $this->whitelist)) return;
+                if(in_array($values, $this->whitelist)) continue;
                 $list .= implode(", ", $values);
             }
             $path = $this->getDataFolder() . "ads.log";
