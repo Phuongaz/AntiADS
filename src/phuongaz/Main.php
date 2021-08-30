@@ -17,7 +17,7 @@ class Main extends PluginBase implements Listener{
 
     public function onChat(PlayerChatEvent $event) :void{
         $message = $event->getMessage();
-        $regex = "([^:/\s.]+ *+[,|.]+ *[^:/\s]{2,3})";
+        $regex = "([a-zA-Z0-9]+ *+[(\.|,)]+ *+[^\s]{2,}|\.[a-zA-Z0-9]+\.[^\s]{2,})";
         preg_match_all($regex, $message, $matches);
         if(count($matches[0]) > 0){
             $list = $event->getPlayer()->getName() . ": ";
